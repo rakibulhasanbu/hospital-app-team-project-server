@@ -1,5 +1,8 @@
 const express = require('express');
-const { default: mongoose } = require('mongoose');
+const mongoose = require('mongoose');
+const usersHandler = require('./routeHandler/usersHandler')
+
+
 
 const app = express()
 app.use(express.json())
