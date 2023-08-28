@@ -25,6 +25,11 @@ router.post('/', async(req, res)=>{
                 error: "There was a server side error "
             })
         }
+        else{
+            res.status(200).json({
+                message: "User was inserted successfully"
+            })
+        }
     })
 })
 
