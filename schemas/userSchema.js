@@ -8,6 +8,11 @@ const usersSchema = mongoose.Schema({
     userName:{
         type: String,
         required: true,
-    }
+    },
+    userRole:{
+        type: String,
+        required: true,
+    },
+    age: String
     
 })
