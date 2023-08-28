@@ -17,6 +17,6 @@ router.post('/', async(req, res)=>{
 })
 
 //PUT user 
-router.put('/', async(req, res)=>{
+router.put('/:id', async(req, res)=>{
     
 })
