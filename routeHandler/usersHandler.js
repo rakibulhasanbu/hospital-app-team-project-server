@@ -21,7 +21,9 @@ router.post('/', async(req, res)=>{
     const newUser = new User(req.body)
     await newUser.save((err)=>{
         if(err){
-            
+            res.status(500).json({
+                error: "There was a server side error "
+            })
         }
     })
 })
