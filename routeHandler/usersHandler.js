@@ -18,18 +18,13 @@ router.get('/:id', async(req, res)=>{
 
 //Post user 
 router.post('/', async(req, res)=>{
+  
     const newUser = new User(req.body)
-    await newUser.save((err)=>{
-        if(err){
-            res.status(500).json({
-                error: "There was a server side error "
-            })
-        }
-        else{
-            res.status(200).json({
-                message: "User was inserted successfully"
-            })
-        }
+    const result= await newUser.save()
+    res.status(200).json({
+        status:'success',
+        message: 'Data inserted successfully',
+        data: result
     })
 })
 

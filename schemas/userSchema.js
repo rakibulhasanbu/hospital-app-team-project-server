@@ -13,9 +13,9 @@ const usersSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    age: String
+    age: String,
     
 })
 
 
-module.exports = usersSchema
+module.exports = usersSchema ;
