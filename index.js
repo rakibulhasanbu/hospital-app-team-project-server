@@ -10,8 +10,9 @@ mongoose.connect(`mongodb+srv://hospitaldb:muDFH7Rz4NWz8733@cluster0.ju0kv0r.mon
 })
     .then(()=>console.log(`connection successful`))
     .catch(err=>console.log(err))
-
-
+// application routes
+app.use('/users', usersHandler)
+//default error handler 
 function errorHandler(err, req, res, next){
     if(res.headersSend){
         return next(err)
