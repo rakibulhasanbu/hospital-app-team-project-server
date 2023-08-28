@@ -1,6 +1,10 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const router = express.Router();
 const usersSchema = require('../schemas/userSchema')
+
+
+
 
 //Get all the users
 router.get('/', async(req, res)=>{
