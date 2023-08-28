@@ -1,8 +1,12 @@
 const express = require('express');
-const { default: mongoose } = require('mongoose');
+const mongoose = require('mongoose');
+const usersHandler = require('./routeHandler/usersHandler')
+const cors = require("cors");
+
 
 const app = express()
 app.use(express.json())
+app.use(cors());
 
 mongoose.connect(`mongodb+srv://hospitaldb:muDFH7Rz4NWz8733@cluster0.ju0kv0r.mongodb.net/?retryWrites=true&w=majority`,{
     useNewUrlParser: true,
@@ -12,6 +16,15 @@ mongoose.connect(`mongodb+srv://hospitaldb:muDFH7Rz4NWz8733@cluster0.ju0kv0r.mon
     .catch(err=>console.log(err))
 
 
+// application routes
+app.use('/users', usersHandler)
+
+app.get('/',(req,res)=>{
+    res.send('server is running')
+})
+
+
+//default error handler 
 function errorHandler(err, req, res, next){
     if(res.headersSend){
         return next(err)
@@ -20,5 +33,5 @@ function errorHandler(err, req, res, next){
 }
 
 app.listen(5000,()=>{
-    console.log("app listening at port 5000")
+    console.log(`app listening at port 5000`)
 })
