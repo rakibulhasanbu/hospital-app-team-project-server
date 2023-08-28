@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 const usersSchema = require('../schemas/userSchema')
-
+const User = new mongoose.model("User", usersSchema)
 
 
 
