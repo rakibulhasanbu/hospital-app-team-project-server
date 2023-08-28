@@ -18,7 +18,12 @@ router.get('/:id', async(req, res)=>{
 
 //Post user 
 router.post('/', async(req, res)=>{
-    
+    const newUser = new User(req.body)
+    await newUser.save((err)=>{
+        if(err){
+            
+        }
+    })
 })
 
 //PUT user 
