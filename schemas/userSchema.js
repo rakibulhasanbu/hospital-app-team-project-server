@@ -16,3 +16,6 @@ const usersSchema = mongoose.Schema({
     age: String
     
 })
+
+
+module.exports = usersSchema
