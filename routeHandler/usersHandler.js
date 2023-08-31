@@ -18,7 +18,12 @@ router.get('/', async(req, res)=>{
 
 //Get a user by id
 router.get('/:id', async(req, res)=>{
-    
+    const result= await User.find({_id: req.params.id})
+    res.status(200).json({
+        status:'success',
+        message: 'Data get successfully',
+        data: result
+    })
 })
 
 //Post user 
