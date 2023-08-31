@@ -8,7 +8,12 @@ const User = new mongoose.model("User", usersSchema)
 
 //Get all the users
 router.get('/', async(req, res)=>{
-
+    const result= await User.find({})
+    res.status(200).json({
+        status:'success',
+        message: 'Data get successfully',
+        data: result
+    })
 })
 
 //Get a user by id
