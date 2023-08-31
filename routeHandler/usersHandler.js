@@ -27,6 +27,17 @@ router.post('/', async(req, res)=>{
         data: result
     })
 })
+//Post Multiple users 
+router.post('/all', async(req, res)=>{
+  
+    const newUser = new User(req.body)
+    const result= await newUser.insertMany()
+    res.status(200).json({
+        status:'success',
+        message: 'Data inserted successfully',
+        data: result
+    })
+})
 
 //PUT user 
 router.put('/:id', async(req, res)=>{
