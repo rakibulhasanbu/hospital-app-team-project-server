@@ -30,8 +30,8 @@ router.post('/', async(req, res)=>{
 //Post Multiple users 
 router.post('/all', async(req, res)=>{
   
-    const newUser = new User(req.body)
-    const result= await newUser.insertMany()
+    const newUser = req.body
+    const result= await User.insertMany(newUser)
     res.status(200).json({
         status:'success',
         message: 'Data inserted successfully',
