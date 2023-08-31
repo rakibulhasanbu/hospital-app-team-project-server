@@ -27,6 +27,9 @@ router.post('/', async(req, res)=>{
         data: result
     })
 })
+
+
+
 //Post Multiple users 
 router.post('/all', async(req, res)=>{
   
@@ -39,9 +42,17 @@ router.post('/all', async(req, res)=>{
     })
 })
 
-//PUT user 
+//PUT (Update) user 
 router.put('/:id', async(req, res)=>{
-    
+    const userData = req.body
+    const result= await User.updateOne({_id: req.params.id},{$set:{
+        age:userData.age
+    }})
+    res.status(200).json({
+        status:'success',
+        message: 'Data updated successfully',
+        data: result
+    })
 })
 
 //Delete user 
