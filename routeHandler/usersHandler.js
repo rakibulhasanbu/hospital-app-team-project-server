@@ -71,7 +71,12 @@ router.put('/:id', async(req, res)=>{
 
 //Delete user 
 router.delete('/:id', async(req, res)=>{
-    
+    const result= await User.deleteOne({_id: req.params.id})
+    res.status(200).json({
+        status:'success',
+        message: 'Data was delete successfully',
+        data: result
+    })
 })
 
 
