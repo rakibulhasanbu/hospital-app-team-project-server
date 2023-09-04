@@ -8,12 +8,17 @@ const User = mongoose.model("User", usersSchema)
 
 //Get all the users
 router.get('/', async(req, res)=>{
-    const result= await User.find({})
-    res.status(200).json({
-        status:'success',
-        message: 'Data get successfully',
-        data: result
-    })
+    try {
+        const result= await User.find({})
+        res.status(200).json({
+            status:'success',
+            message: 'Data get successfully',
+            data: result
+        })
+    } catch (error) {
+        res.status(500).json({ error: 'Server Error' });
+    }
+
 })
 
 //Get a user by id
