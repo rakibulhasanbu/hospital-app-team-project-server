@@ -8,7 +8,7 @@ const app = express()
 app.use(express.json())
 app.use(cors());
 
-mongoose.connect(`mongodb+srv://hospitaldb:muDFH7Rz4NWz8733@cluster0.ju0kv0r.mongodb.net/?retryWrites=true&w=majority`,{
+mongoose.connect(`mongodb+srv://hospitaldb:dofwQ7g9nncwX9FU@cluster0.ju0kv0r.mongodb.net/?retryWrites=true&w=majority`,{
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })

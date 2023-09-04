@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 const usersSchema = require('../schemas/userSchema')
-const User = new mongoose.model("User", usersSchema)
+const User = mongoose.model("User", usersSchema)
 
 
 
@@ -18,17 +18,22 @@ router.get('/', async(req, res)=>{
 
 //Get a user by id
 router.get('/:id', async(req, res)=>{
-    const result= await User.find({_id: req.params.id})
-    res.status(200).json({
-        status:'success',
-        message: 'Data get successfully',
-        data: result
-    })
+    try {
+        const result= await User.find({_id: req.params.id})
+        res.status(200).json({
+            status:'success',
+            message: 'Data get successfully',
+            data: result
+        }) 
+    } catch (error) {
+        res.status(500).json({ error: 'Server Error' });
+    }
+    
 })
 
 //Post user 
 router.post('/', async(req, res)=>{
-  
+  try {
     const newUser = new User(req.body)
     const result= await newUser.save()
     res.status(200).json({
@@ -36,6 +41,10 @@ router.post('/', async(req, res)=>{
         message: 'Data inserted successfully',
         data: result
     })
+  } catch (error) {
+    res.status(500).json({ error: 'Server Error' });
+  }
+    
 })
 
 
