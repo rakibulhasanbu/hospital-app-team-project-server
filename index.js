@@ -12,26 +12,26 @@ mongoose.connect(`mongodb+srv://hospitaldb:dofwQ7g9nncwX9FU@cluster0.ju0kv0r.mon
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
-    .then(()=>console.log(`connection successful`))
-    .catch(err=>console.log(err))
+    .then(() => console.log(`Database connection successful`))
+    .catch(err => console.log(err))
 
 
 // application routes
 app.use('/users', usersHandler)
 
-app.get('/',(req,res)=>{
+app.get('/', (req, res) => {
     res.send('server is running')
 })
 
 
-//default error handler 
-function errorHandler(err, req, res, next){
-    if(res.headersSend){
+//default error handler
+function errorHandler(err, req, res, next) {
+    if (res.headersSend) {
         return next(err)
     }
-    res.status(500).json({error: err})
+    res.status(500).json({ error: err })
 }
 
-app.listen(5000,()=>{
+app.listen(5000, () => {
     console.log(`app listening at port 5000`)
 })
