@@ -72,29 +72,39 @@ router.post('/all', async(req, res)=>{
 
 //PUT (Update) user 
 router.put('/:id', async(req, res)=>{
-    const userData = req.body
-    const result= await User.findByIdAndUpdate({_id: req.params.id},{$set:{
-        age:userData.age
-    }},
-    {
-        new:true,
-        useFindAndModify: false,
-    })
-    res.status(200).json({
-        status:'success',
-        message: 'Data updated successfully',
-        data: result
-    })
+    try {
+        const userData = req.body
+        const result= await User.findByIdAndUpdate({_id: req.params.id},{$set:{
+            age:userData.age
+        }},
+        {
+            new:true,
+            useFindAndModify: false,
+        })
+        res.status(200).json({
+            status:'success',
+            message: 'Data updated successfully',
+            data: result
+        })
+    } catch (error) {
+        res.status(500).json({ error: 'Server Error' });
+    }
+
 })
 
 //Delete user 
 router.delete('/:id', async(req, res)=>{
-    const result= await User.deleteOne({_id: req.params.id})
-    res.status(200).json({
-        status:'success',
-        message: 'Data was delete successfully',
-        data: result
-    })
+    try {
+        const result= await User.deleteOne({_id: req.params.id})
+        res.status(200).json({
+            status:'success',
+            message: 'Data was delete successfully',
+            data: result
+        })
+    } catch (error) {
+        res.status(500).json({ error: 'Server Error' });
+    }
+
 })
 
 
