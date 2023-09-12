@@ -1,20 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const usersHandler = require('./routeHandler/usersHandler')
+const usersHandler = require('./routes/userRoute')
 const cors = require("cors");
-
+const databaseConnect = require('./config/database')
 
 const app = express()
 app.use(express.json())
 app.use(cors());
-
-mongoose.connect(`mongodb+srv://hospitaldb:dofwQ7g9nncwX9FU@cluster0.ju0kv0r.mongodb.net/hospital-db?retryWrites=true&w=majority`,{
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-    .then(() => console.log(`Database connection successful`))
-    .catch(err => console.log(err))
-
+databaseConnect()
 
 // application routes
 app.use('/users', usersHandler)
