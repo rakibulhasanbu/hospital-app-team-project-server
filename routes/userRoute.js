@@ -22,9 +22,9 @@ router.get('/', async (req, res) => {
 })
 
 //Get a user by id
-router.get('/:id', async (req, res) => {
+router.get('/:email', async (req, res) => {
     try {
-        const result = await User.find({ _id: req.params.id })
+        const result = await User.findOne({ email: req.params.email })
         res.status(200).json({
             status: 'success',
             message: 'Data get successfully',
@@ -40,6 +40,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const newUser = new User(req.body)
+        console.log(" comming sonn", newUser);
         const result = await newUser.save()
         res.status(200).json({
             status: 'success',
