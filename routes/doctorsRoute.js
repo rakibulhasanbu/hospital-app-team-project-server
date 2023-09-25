@@ -50,7 +50,27 @@ router.post("/", async (req, res) => {
 // Edit a Doctor
 router.put("/:id", async (req, res) => {
   try {
-  } catch (error) {}
+    const data = req.body;
+    const result = await User.findByIdAndUpdate(
+      { _id: req.params.id },
+      {
+        $set: {
+          data: data,
+        },
+      },
+      {
+        new: true,
+        useFindAndModify: false,
+      }
+    );
+    res.status(200).json({
+      status: "success",
+      message: "Data updated successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Server Error" });
+  }
 });
 
 // Delete a Doctor
