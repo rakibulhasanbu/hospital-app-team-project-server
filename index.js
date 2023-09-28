@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import * as dotenv from "dotenv";
 import { logger, EPurpose } from "dev-http-logger";
-import { DBConnectin } from "./configs";
+import { DBConnectin, options } from "./configs/index.js";
 dotenv.config();
 
 /**
@@ -12,7 +12,7 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors(corsOption));
+app.use(cors(options));
 app.use(
   logger({
     origin: true,
