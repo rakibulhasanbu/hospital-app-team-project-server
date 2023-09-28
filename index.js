@@ -1,31 +1,38 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const usersHandler = require("./routes/userRoute");
-const doctorsHandler = require("./routes/doctorsRoute");
-const cors = require("cors");
-const databaseConnect = require("./config/database");
+import express from "express";
+import cors from "cors";
+import * as dotenv from "dotenv";
+import { logger, EPurpose } from "dev-http-logger";
+import { DBConnectin } from "./configs";
+dotenv.config();
 
+/**
+ * create app from express
+ * define middleware
+ */
 const app = express();
 app.use(express.json());
-app.use(cors());
-databaseConnect();
+app.use(express.urlencoded({ extended: true }));
+app.use(cors(corsOption));
+app.use(
+  logger({
+    origin: true,
+    purpose: EPurpose.DEV,
+    showHeader: true,
+  })
+);
+/**
+ * All Routes
+ */
+// app.use("/api/v1", UserRoutes);
+// TODO
+// for creating doctor...
 
-// application routes
-app.use("/users", usersHandler);
-app.use("/doctors", doctorsHandler);
-
-app.get("/", (req, res) => {
-  res.send("server is running");
-});
-
-//default error handler
-function errorHandler(err, req, res, next) {
-  if (res.headersSend) {
-    return next(err);
-  }
-  res.status(500).json({ error: err });
-}
-
-app.listen(5000, () => {
-  console.log(`app listening at port 5000`);
+/**
+ * Server listen
+ * Connect DB
+ */
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  DBConnectin.connection();
+  console.log(`Server is running at ${PORT}!`);
 });
