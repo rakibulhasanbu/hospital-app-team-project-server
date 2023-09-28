@@ -3,6 +3,7 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import { logger, EPurpose } from "dev-http-logger";
 import { DBConnectin, options } from "./configs/index.js";
+import { AuthRoutes, UserRoutes } from "./routes/index.js";
 dotenv.config();
 
 /**
@@ -23,9 +24,10 @@ app.use(
 /**
  * All Routes
  */
-// app.use("/api/v1", UserRoutes);
+app.use("/api/v1", UserRoutes);
+app.use("/api/v1", AuthRoutes);
 // TODO
-// for creating doctor...
+// for creating doctor, and many more...
 
 /**
  * Server listen
