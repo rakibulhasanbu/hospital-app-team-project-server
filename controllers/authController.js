@@ -3,7 +3,7 @@
 class AuthController {
   /**
    * MEHTOD   -> POST
-   * URI      -> /api/v1/auth
+   * URI      -> /api/v1/auth/login
    * @description lgoin method will help us to login a user with JWT token
    */
   static async login(req, res) {}
