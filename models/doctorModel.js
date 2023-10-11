@@ -30,11 +30,31 @@ const doctorsSchema = mongoose.Schema({
     enum: ["male", "female"],
     required: true,
   },
-  serviceCharge: {
+  fees: {
     type: Number,
     required: true,
   },
+  experience: {
+    type: Number,
+    required: true,
+  },
+  qualification: {
+    type: String,
+    required: true,
+  },
+  specialist: {
+    type: String,
+    required: true,
+  },
+  hospitalName: {
+    type: String,
+    required: true,
+  },
   education: {
+    type: String,
+    required: true,
+  },
+  district: {
     type: String,
     required: true,
   },
