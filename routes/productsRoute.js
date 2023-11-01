@@ -17,4 +17,18 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  try {
+    const newProduct = new Product(req.body);
+    const result = await newProduct.save();
+    res.status(200).json({
+      status: "success",
+      message: "products inserted successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Server Error" });
+  }
+});
+
 module.exports = router;
