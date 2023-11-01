@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const usersHandler = require("./routes/userRoute");
 const doctorsHandler = require("./routes/doctorsRoute");
+const productHandler = require("./routes/productsRoute");
 const cors = require("cors");
 const databaseConnect = require("./config/database");
 
@@ -13,6 +14,7 @@ databaseConnect();
 // application routes
 app.use("/users", usersHandler);
 app.use("/doctors", doctorsHandler);
+app.use("/products", productHandler);
 
 app.get("/", (req, res) => {
   res.send("server is running");
