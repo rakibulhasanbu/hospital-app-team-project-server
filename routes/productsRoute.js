@@ -31,4 +31,19 @@ router.post("/", async (req, res) => {
   }
 });
 
+// Get products by Id
+
+router.get("/:id", async (req, res) => {
+  try {
+    const result = await Product.findOne({ _id: req.params.id });
+    res.status(200).json({
+      status: "success",
+      message: "Data get successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Server Error" });
+  }
+});
+
 module.exports = router;
