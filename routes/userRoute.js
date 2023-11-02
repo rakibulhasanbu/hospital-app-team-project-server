@@ -1,13 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const router = express.Router();
 const usersSchema = require('../models/userModel')
 const User = mongoose.model("User", usersSchema)
+
+const userRouter = express.Router();
 
 
 
 //Get all the users
-router.get('/', async (req, res) => {
+userRouter.get('/', async (req, res) => {
     try {
         const result = await User.find({})
         res.status(200).json({
@@ -22,14 +23,15 @@ router.get('/', async (req, res) => {
 })
 
 //Get a user by id
-router.get('/:email', async (req, res) => {
+userRouter.get('/:email', async (req, res) => {
     try {
-        const result = await User.findOne({ email: req.params.email })
+        const result = await User.findOne({ email: req.params.email }).exec();
         res.status(200).json({
             status: 'success',
             message: 'Data get successfully',
             data: result
         })
+        console.log(result, req.params.email);
     } catch (error) {
         res.status(500).json({ error: 'Server Error' });
     }
@@ -37,7 +39,7 @@ router.get('/:email', async (req, res) => {
 })
 
 //Post user
-router.post('/', async (req, res) => {
+userRouter.post('/', async (req, res) => {
     try {
         const newUser = new User(req.body)
         console.log(" comming sonn", newUser);
@@ -56,7 +58,7 @@ router.post('/', async (req, res) => {
 
 
 //Post Multiple users
-router.post('/all', async (req, res) => {
+userRouter.post('/all', async (req, res) => {
     try {
         const newUser = req.body
         const result = await User.insertMany(newUser)
@@ -72,7 +74,7 @@ router.post('/all', async (req, res) => {
 })
 
 //PUT (Update) user
-router.put('/:id', async (req, res) => {
+userRouter.put('/:id', async (req, res) => {
     try {
         const userData = req.body
         const result = await User.findByIdAndUpdate({ _id: req.params.id }, {
@@ -96,7 +98,7 @@ router.put('/:id', async (req, res) => {
 })
 
 //Delete user
-router.delete('/:id', async (req, res) => {
+userRouter.delete('/:id', async (req, res) => {
     try {
         const result = await User.deleteOne({ _id: req.params.id })
         res.status(200).json({
@@ -111,4 +113,4 @@ router.delete('/:id', async (req, res) => {
 })
 
 
-module.exports = router
+module.exports = userRouter

@@ -1,33 +1,47 @@
+require("dotenv").config();
 const express = require("express");
-const mongoose = require("mongoose");
 const usersHandler = require("./routes/userRoute");
 const doctorsHandler = require("./routes/doctorsRoute");
 const productHandler = require("./routes/productsRoute");
 const cors = require("cors");
-const databaseConnect = require("./config/database");
+const connectDB = require("./utils/db");
+const branchRouter = require("./routes/branchRouter");
+const { ErrorMiddleware } = require("./middleware/errorMiddleware");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
-databaseConnect();
+
 
 // application routes
 app.use("/users", usersHandler);
 app.use("/doctors", doctorsHandler);
 app.use("/products", productHandler);
 
-app.get("/", (req, res) => {
-  res.send("server is running");
+
+app.use("/api/v1", branchRouter);
+
+// write test api
+app.get("/test", (_req, res, _next) => {
+  res.status(200).json({
+    success: true,
+    message: "Api is working perfectly",
+  });
 });
 
-//default error handler
-function errorHandler(err, req, res, next) {
-  if (res.headersSend) {
-    return next(err);
-  }
-  res.status(500).json({ error: err });
-}
 
-app.listen(5000, () => {
-  console.log(`app listening at port 5000`);
+// unknown route handling
+app.get("*", (req, _res, next) => {
+  const err = new Error(`Route ${req.originalUrl} cannot found`);
+  err.statusCode = 404;
+  next(err);
+});
+
+//global middleware for handling error
+app.use(ErrorMiddleware)
+
+//app listening here
+app.listen(process.env.PORT, () => {
+  connectDB();
+  console.log(`app listening at port ${process.env.PORT}`);
 });
