@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(cors());
 connectDB();
 
+
 // application routes
 app.use("/users", usersHandler);
 app.use("/doctors", doctorsHandler);
@@ -20,6 +21,9 @@ app.use("/products", productHandler);
 
 
 app.use("/api/v1", branchRouter);
+
+//global middleware for handling error
+app.use(ErrorMiddleware)
 
 // write test api
 app.get("/test", (_req, res, _next) => {
@@ -29,6 +33,7 @@ app.get("/test", (_req, res, _next) => {
   });
 });
 
+
 // unknown route handling
 app.get("*", (req, _res, next) => {
   const err = new Error(`Route ${req.originalUrl} cannot found`);
@@ -36,10 +41,7 @@ app.get("*", (req, _res, next) => {
   next(err);
 });
 
+
 app.listen(5000, () => {
   console.log(`app listening at port 5000`);
 });
-
-
-//global middleware for handling error
-app.use(ErrorMiddleware)
