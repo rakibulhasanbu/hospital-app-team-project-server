@@ -1,5 +1,5 @@
+require("dotenv").config();
 const express = require("express");
-const mongoose = require("mongoose");
 const usersHandler = require("./routes/userRoute");
 const doctorsHandler = require("./routes/doctorsRoute");
 const productHandler = require("./routes/productsRoute");
@@ -11,7 +11,6 @@ const { ErrorMiddleware } = require("./middleware/errorMiddleware");
 const app = express();
 app.use(express.json());
 app.use(cors());
-connectDB();
 
 
 // application routes
@@ -21,9 +20,6 @@ app.use("/products", productHandler);
 
 
 app.use("/api/v1", branchRouter);
-
-//global middleware for handling error
-app.use(ErrorMiddleware)
 
 // write test api
 app.get("/test", (_req, res, _next) => {
@@ -41,7 +37,11 @@ app.get("*", (req, _res, next) => {
   next(err);
 });
 
+//global middleware for handling error
+app.use(ErrorMiddleware)
 
-app.listen(5000, () => {
-  console.log(`app listening at port 5000`);
+//app listening here
+app.listen(process.env.PORT, () => {
+  connectDB();
+  console.log(`app listening at port ${process.env.PORT}`);
 });
