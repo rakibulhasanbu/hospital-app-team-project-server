@@ -42,7 +42,22 @@ const getAllBranch = CatchAsyncError(
     }
 )
 
+const getSingleBranch = CatchAsyncError(
+    async (req, res, next) => {
+        try {
+            const { id } = req.params;
+            const branch = await branchModel.findOne({ _id: id });
+
+            res.status(200).json({
+                success: true,
+                branch
+            })
+        } catch (error) {
+            return next(new ErrorHandler(error.message, 400));
+        }
+    }
+)
 
 module.exports = {
-    createBranch, getAllBranch
+    createBranch, getAllBranch, getSingleBranch
 };
