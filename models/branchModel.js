@@ -1,9 +1,11 @@
-const { Schema, default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
+const { Schema } = require("mongoose");
 
 const branchSchema = new Schema(
     {
         name: {
             type: String,
+            unique: true,
             required: [true, "Please enter your Branch name"],
         },
         division: {
