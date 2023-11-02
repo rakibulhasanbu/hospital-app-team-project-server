@@ -6,24 +6,58 @@ const createBranch = CatchAsyncError(
     async (req, res, next) => {
         try {
             const data = req.body;
-            console.log("data", data);
+
             if (Object.keys(data).length === 0) {
                 return next(new ErrorHandler("Please provide course data", 400));
             }
 
+            const isExistBranch = await branchModel.findOne({ name: data.name });
+            if (isExistBranch) {
+                return next(new ErrorHandler(`${data.name} branch name is already registered please provide another name`, 400));
+            }
+
             const branch = await branchModel.create(data);
-            console.log("branch", branch);
+
             res.status(201).json({
                 success: true,
                 branch
             })
         } catch (error) {
-            console.log("error in catch", error);
+            return next(new ErrorHandler(error.message, 400));
+        }
+    }
+)
+
+const getAllBranch = CatchAsyncError(
+    async (req, res, next) => {
+        try {
+            const branches = await branchModel.find();
+            res.status(200).json({
+                success: true,
+                branches
+            })
+        } catch (error) {
+            return next(new ErrorHandler(error.message, 400));
+        }
+    }
+)
+
+const getSingleBranch = CatchAsyncError(
+    async (req, res, next) => {
+        try {
+            const { id } = req.params;
+            const branch = await branchModel.findOne({ _id: id });
+
+            res.status(200).json({
+                success: true,
+                branch
+            })
+        } catch (error) {
             return next(new ErrorHandler(error.message, 400));
         }
     }
 )
 
 module.exports = {
-    createBranch
+    createBranch, getAllBranch, getSingleBranch
 };
