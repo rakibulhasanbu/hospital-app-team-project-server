@@ -23,8 +23,8 @@ const branchSchema = new Schema(
             required: [true, "Please enter your email name"],
         },
         imageUrl: {
-            public_id: String,
-            url: String,
+            type: String,
+            required: [true, "Please enter your branch image url"],
         }
     }, { timestamps: true }
 )

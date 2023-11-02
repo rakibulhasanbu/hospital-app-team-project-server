@@ -16,17 +16,20 @@ app.use("/users", usersHandler);
 app.use("/doctors", doctorsHandler);
 app.use("/products", productHandler);
 
-app.get("/", (req, res) => {
-  res.send("server is running");
+// write test api
+app.get("/test", (_req, res, _next) => {
+  res.status(200).json({
+    success: true,
+    message: "Api is working perfectly",
+  });
 });
 
-//default error handler
-function errorHandler(err, req, res, next) {
-  if (res.headersSend) {
-    return next(err);
-  }
-  res.status(500).json({ error: err });
-}
+// unknown route handling
+app.get("*", (req, _res, next) => {
+  const err = new Error(`Route ${req.originalUrl} cannot found`);
+  err.statusCode = 404;
+  next(err);
+});
 
 app.listen(5000, () => {
   console.log(`app listening at port 5000`);
