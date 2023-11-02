@@ -1,5 +1,5 @@
 const branchModel = require("../models/branchModel");
-const { CatchAsyncError } = require("../utils/catchAsyncError");
+const CatchAsyncError = require("../utils/catchAsyncError");
 
 const createBranch = CatchAsyncError(
     async (req, res, next) => {
@@ -20,3 +20,7 @@ const createBranch = CatchAsyncError(
         }
     }
 )
+
+module.exports = {
+    createBranch
+};
