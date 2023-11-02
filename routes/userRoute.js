@@ -24,12 +24,13 @@ router.get('/', async (req, res) => {
 //Get a user by id
 router.get('/:email', async (req, res) => {
     try {
-        const result = await User.findOne({ email: req.params.email })
+        const result = await User.findOne({ email: req.params.email }).exec();
         res.status(200).json({
             status: 'success',
             message: 'Data get successfully',
             data: result
         })
+        console.log(result, req.params.email);
     } catch (error) {
         res.status(500).json({ error: 'Server Error' });
     }

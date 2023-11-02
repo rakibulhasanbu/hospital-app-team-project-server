@@ -4,12 +4,12 @@ const usersHandler = require("./routes/userRoute");
 const doctorsHandler = require("./routes/doctorsRoute");
 const productHandler = require("./routes/productsRoute");
 const cors = require("cors");
-const databaseConnect = require("./config/database");
+const connectDB = require("./utils/db");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
-databaseConnect();
+connectDB();
 
 // application routes
 app.use("/users", usersHandler);
