@@ -6,6 +6,7 @@ const productHandler = require("./routes/productsRoute");
 const cors = require("cors");
 const connectDB = require("./utils/db");
 const branchRouter = require("./routes/branchRouter");
+const { ErrorMiddleware } = require("./middleware/errorMiddleware");
 
 const app = express();
 app.use(express.json());
@@ -38,3 +39,7 @@ app.get("*", (req, _res, next) => {
 app.listen(5000, () => {
   console.log(`app listening at port 5000`);
 });
+
+
+//global middleware for handling error
+app.use(ErrorMiddleware)
