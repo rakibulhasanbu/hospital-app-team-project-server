@@ -58,6 +58,29 @@ const getSingleBranch = CatchAsyncError(
     }
 )
 
+const updateBranch = CatchAsyncError(
+    async (req, res, next) => {
+        try {
+            const { id } = req.params;
+            const { phone, email, imageUrl } = req.body;
+
+            if (!phone, !email, !imageUrl) {
+                return next(new ErrorHandler("Provide phone number or email or image url for update", 400));
+            }
+
+            const updateData = { phone, email, imageUrl };
+            const branch = await branchModel.findByIdAndUpdate(id, { $set: updateData }, { new: true });
+
+            res.status(201).json({
+                success: true,
+                branch
+            })
+        } catch (error) {
+            return next(new ErrorHandler(error.message, 400));
+        }
+    }
+)
+
 const deleteSingleBranch = CatchAsyncError(
     async (req, res, next) => {
         try {
@@ -80,5 +103,5 @@ const deleteSingleBranch = CatchAsyncError(
 )
 
 module.exports = {
-    createBranch, getAllBranch, getSingleBranch, deleteSingleBranch
+    createBranch, getAllBranch, getSingleBranch, updateBranch, deleteSingleBranch
 };

@@ -61,16 +61,12 @@ const updateBlog = CatchAsyncError(
             const { title, description, imageUrl } = req.body;
             const { id } = req.params
 
-            const blog = await blogModel.findById(id);
-            if (!blog) {
-                return next(new ErrorHandler("Blog not found", 404))
+            if (!title, !description, !imageUrl) {
+                return next(new ErrorHandler("Provide blog title or description or image url for update", 400));
             }
 
-            blog.title = title || blog.title;
-            blog.description = description || blog.description;
-            blog.imageUrl = imageUrl || blog.imageUrl;
-
-            await blog.save();
+            const updateData = { title, description, imageUrl };
+            const blog = await blogModel.findByIdAndUpdate(id, { $set: updateData }, { new: true });
 
             res.status(200).json({
                 success: true,

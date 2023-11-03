@@ -17,10 +17,6 @@ const blogSchema = new Schema({
         type: String,
         required: [true, "Please enter your blog author"],
     },
-    phone: {
-        type: String,
-        required: [true, "Please enter your blog phone"],
-    },
     email: {
         type: String,
         required: [true, "Please enter your blog email"],
