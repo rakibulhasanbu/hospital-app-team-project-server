@@ -21,4 +21,18 @@ const createBlog = CatchAsyncError(
     }
 );
 
-module.exports = { createBlog }
+const getAllBlog = CatchAsyncError(
+    async (req, res, next) => {
+        try {
+            const blogs = await blogModel.find()
+            res.status(200).json({
+                success: true,
+                blogs
+            })
+        } catch (error) {
+            return next(new ErrorHandler(error.message, 400));
+        }
+    }
+)
+
+module.exports = { createBlog, getAllBlog }
