@@ -55,6 +55,33 @@ const getSingleBlog = CatchAsyncError(
     }
 );
 
+const updateBlog = CatchAsyncError(
+    async (req, res, next) => {
+        try {
+            const { title, description, imageUrl } = req.body;
+            const { id } = req.params
+
+            const blog = await blogModel.findById(id);
+            if (!blog) {
+                return next(new ErrorHandler("Blog not found", 404))
+            }
+
+            blog.title = title || blog.title;
+            blog.description = description || blog.description;
+            blog.imageUrl = imageUrl || blog.imageUrl;
+
+            await blog.save();
+
+            res.status(200).json({
+                success: true,
+                blog
+            })
+        } catch (error) {
+            return next(new ErrorHandler(error.message, 400));
+        }
+    }
+)
+
 const deleteBlog = CatchAsyncError(
     async (req, res, next) => {
         try {
@@ -75,4 +102,4 @@ const deleteBlog = CatchAsyncError(
     }
 )
 
-module.exports = { createBlog, getAllBlog, getSingleBlog, deleteBlog }
+module.exports = { createBlog, getAllBlog, getSingleBlog, updateBlog, deleteBlog }
