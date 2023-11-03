@@ -58,6 +58,27 @@ const getSingleBranch = CatchAsyncError(
     }
 )
 
+const deleteSingleBranch = CatchAsyncError(
+    async (req, res, next) => {
+        try {
+            const { id } = req.params;
+            const branch = await branchModel.findByIdAndDelete(id);
+            console.log(branch);
+
+            if (!branch) {
+                return next(new ErrorHandler(`Branch not found`, 400));
+            }
+
+            res.status(200).json({
+                success: true,
+                message: `Delete ${branch?.name} branch successfully`
+            })
+        } catch (error) {
+            return next(new ErrorHandler(error.message, 400));
+        }
+    }
+)
+
 module.exports = {
-    createBranch, getAllBranch, getSingleBranch
+    createBranch, getAllBranch, getSingleBranch, deleteSingleBranch
 };
