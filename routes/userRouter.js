@@ -5,7 +5,7 @@ const userRouter = express.Router();
 
 
 //Get all the users
-userRouter.get('/', async (req, res) => {
+userRouter.get('/', async (_req, res) => {
     try {
         const result = await User.find({})
         res.status(200).json({
