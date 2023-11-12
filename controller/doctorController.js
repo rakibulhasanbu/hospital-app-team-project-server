@@ -42,6 +42,30 @@ const getAllDoctors = CatchAsyncError(
     }
 )
 
+const getDoctorsByBranchId = CatchAsyncError(
+    async (req, res, next) => {
+        try {
+            const { id } = req.params;
+            const branch = await branchModel.findById(id);
+            if (!branch) {
+                return next(new ErrorHandler("Branch not found!", 404))
+            }
+
+            const doctors = await doctorModel.find({ hospitalName: branch?.name });
+            if (doctors.length === 0) {
+                return next(new ErrorHandler(`${branch?.name} branch haven't any doctor`, 404));
+            }
+
+            res.status(200).json({
+                success: true,
+                doctors
+            })
+        } catch (error) {
+            return next(new ErrorHandler(error.message, 400));
+        }
+    }
+)
+
 const getSingleDoctor = CatchAsyncError(
     async (req, res, next) => {
         try {
@@ -108,4 +132,4 @@ const deleteSingleDoctor = CatchAsyncError(
     }
 )
 
-module.exports = { createDoctor, getAllDoctors, getSingleDoctor, updateSingleDoctor, deleteSingleDoctor };
+module.exports = { createDoctor, getAllDoctors, getDoctorsByBranchId, getSingleDoctor, updateSingleDoctor, deleteSingleDoctor };

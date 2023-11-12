@@ -3,11 +3,12 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./utils/db");
 const { ErrorMiddleware } = require("./middleware/errorMiddleware");
-const usersHandler = require("./routes/userRoute");
-const productHandler = require("./routes/productsRoute");
+const doctorRouter = require("./routes/doctorRouter");
 const branchRouter = require("./routes/branchRouter");
 const blogRouter = require("./routes/blogRouter");
-const doctorRouter = require("./routes/doctorRouter");
+
+const productHandler = require("./routes/productsRoute");
+const usersHandler = require("./routes/userRoute");
 
 const app = express();
 app.use(express.json());
