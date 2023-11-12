@@ -10,7 +10,7 @@ const doctorsSchema = new Schema({
     type: String,
     required: true,
   },
-  mobile: {
+  phone: {
     type: String,
     required: true,
   },

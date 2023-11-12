@@ -64,7 +64,7 @@ const updateBranch = CatchAsyncError(
             const { id } = req.params;
             const { phone, email, imageUrl } = req.body;
 
-            if (!phone, !email, !imageUrl) {
+            if (!phone && !email && !imageUrl) {
                 return next(new ErrorHandler("Provide phone number or email or image url for update", 400));
             }
 

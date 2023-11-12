@@ -62,6 +62,32 @@ const getSingleDoctor = CatchAsyncError(
     }
 )
 
+const updateSingleDoctor = CatchAsyncError(
+    async (req, res, next) => {
+        try {
+            const { id } = req.params;
+
+            const { name, email, phone, imageUrl, fees } = req.body;
+            if (!name && !email && !phone && !imageUrl && !fees) {
+                return next(new ErrorHandler("Provide name or email or phone or image url or fees for update", 400));
+            }
+
+            const updateData = { name, email, phone, imageUrl, fees };
+            const doctor = await doctorModel.findByIdAndUpdate(id, { $set: updateData }, { new: true });
+            if (!doctor) {
+                return next(new ErrorHandler("Doctor updated unsuccessful", 404))
+            }
+
+            res.status(201).json({
+                success: true,
+                doctor
+            })
+        } catch (error) {
+            return next(new ErrorHandler(error.message, 400));
+        }
+    }
+)
+
 const deleteSingleDoctor = CatchAsyncError(
     async (req, res, next) => {
         try {
@@ -82,4 +108,4 @@ const deleteSingleDoctor = CatchAsyncError(
     }
 )
 
-module.exports = { createDoctor, getAllDoctors, getSingleDoctor, deleteSingleDoctor };
+module.exports = { createDoctor, getAllDoctors, getSingleDoctor, updateSingleDoctor, deleteSingleDoctor };
