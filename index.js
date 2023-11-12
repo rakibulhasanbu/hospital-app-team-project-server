@@ -6,9 +6,9 @@ const { ErrorMiddleware } = require("./middleware/errorMiddleware");
 const doctorRouter = require("./routes/doctorRouter");
 const branchRouter = require("./routes/branchRouter");
 const blogRouter = require("./routes/blogRouter");
+const userRouter = require("./routes/userRouter");
 
 const productHandler = require("./routes/productsRoute");
-const usersHandler = require("./routes/userRoute");
 
 const app = express();
 app.use(express.json());
@@ -16,9 +16,8 @@ app.use(cors());
 
 
 // application routes
-app.use("/api/v1", branchRouter, blogRouter, doctorRouter);
+app.use("/api/v1", userRouter, branchRouter, blogRouter, doctorRouter);
 
-app.use("/users", usersHandler);
 app.use("/products", productHandler);
 
 
