@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
-const { Schema } = require("mongoose");
 
-const branchSchema = new Schema(
+const branchSchema = new mongoose.Schema(
     {
         name: {
             type: String,
