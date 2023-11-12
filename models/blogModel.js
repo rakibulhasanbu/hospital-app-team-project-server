@@ -1,6 +1,6 @@
-const { Schema, default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 
-const blogSchema = new Schema({
+const blogSchema = new mongoose.Schema({
     title: {
         type: String,
         required: [true, "Please enter your blog title"],

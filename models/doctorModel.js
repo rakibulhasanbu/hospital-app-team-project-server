@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const doctorsSchema = mongoose.Schema({
+const doctorsSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -9,20 +9,8 @@ const doctorsSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  mobile: {
-    type: Number,
-    required: true,
-  },
-  password: {
-    type: Number,
-    required: true,
-  },
-  confirm_password: {
-    type: Number,
-    required: true,
-  },
-  dateOfBirth: {
-    type: Date,
+  phone: {
+    type: String,
     required: true,
   },
   gender: {
@@ -30,23 +18,7 @@ const doctorsSchema = mongoose.Schema({
     enum: ["male", "female"],
     required: true,
   },
-  fees: {
-    type: Number,
-    required: true,
-  },
-  experience: {
-    type: Number,
-    required: true,
-  },
-  qualification: {
-    type: String,
-    required: true,
-  },
-  specialist: {
-    type: String,
-    required: true,
-  },
-  hospitalName: {
+  imageUrl: {
     type: String,
     required: true,
   },
@@ -54,32 +26,36 @@ const doctorsSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  district: {
-    type: String,
-    required: true,
-  },
-  designation: {
-    type: String,
+  qualifications: {
+    type: [String],
     required: true,
   },
   department: {
     type: String,
-    enum: ["orthopedics", "radiology", "dentist"],
     required: true,
   },
-  address: {
+  hospitalName: {
     type: String,
     required: true,
   },
   division: {
     type: String,
-    enum: ["dhaka", "khulna", "barishal"],
     required: true,
   },
-  image: {
+  district: {
     type: String,
     required: true,
   },
-});
+  experience: {
+    type: Number,
+    required: true,
+  },
+  fees: {
+    type: Number,
+    required: true,
+  },
+}, { timestamps: true });
 
-module.exports = doctorsSchema;
+const doctorModel = mongoose.model("doctor", doctorsSchema);
+
+module.exports = doctorModel;

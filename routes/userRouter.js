@@ -1,7 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const usersSchema = require('../models/userModel')
-const User = mongoose.model("User", usersSchema)
 
 const userRouter = express.Router();
 
@@ -113,4 +110,4 @@ userRouter.delete('/:id', async (req, res) => {
 })
 
 
-module.exports = userRouter
+module.exports = userRouter;
