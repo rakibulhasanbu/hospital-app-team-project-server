@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const doctorsSchema = mongoose.Schema({
+const doctorsSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -10,19 +10,7 @@ const doctorsSchema = mongoose.Schema({
     required: true,
   },
   mobile: {
-    type: Number,
-    required: true,
-  },
-  password: {
-    type: Number,
-    required: true,
-  },
-  confirm_password: {
-    type: Number,
-    required: true,
-  },
-  dateOfBirth: {
-    type: Date,
+    type: String,
     required: true,
   },
   gender: {
@@ -38,7 +26,7 @@ const doctorsSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  qualification: {
+  qualifications: {
     type: String,
     required: true,
   },
@@ -54,6 +42,10 @@ const doctorsSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  division: {
+    type: String,
+    required: true,
+  },
   district: {
     type: String,
     required: true,
@@ -64,22 +56,14 @@ const doctorsSchema = mongoose.Schema({
   },
   department: {
     type: String,
-    enum: ["orthopedics", "radiology", "dentist"],
     required: true,
   },
-  address: {
-    type: String,
-    required: true,
-  },
-  division: {
-    type: String,
-    enum: ["dhaka", "khulna", "barishal"],
-    required: true,
-  },
-  image: {
+  imageUrl: {
     type: String,
     required: true,
   },
 });
 
-module.exports = doctorsSchema;
+const doctorModel = mongoose.model("doctor", doctorsSchema);
+
+module.exports = doctorModel;
