@@ -4,10 +4,11 @@ const cors = require("cors");
 const connectDB = require("./utils/db");
 const { ErrorMiddleware } = require("./middleware/errorMiddleware");
 const usersHandler = require("./routes/userRoute");
-const doctorsHandler = require("./routes/doctorsRoute");
+const doctorsHandler = require("./routes/doctorRouter");
 const productHandler = require("./routes/productsRoute");
 const branchRouter = require("./routes/branchRouter");
 const blogRouter = require("./routes/blogRouter");
+const doctorRouter = require("./routes/doctorRouter");
 
 const app = express();
 app.use(express.json());
@@ -20,7 +21,7 @@ app.use("/doctors", doctorsHandler);
 app.use("/products", productHandler);
 
 
-app.use("/api/v1", branchRouter, blogRouter);
+app.use("/api/v1", branchRouter, blogRouter, doctorRouter);
 
 // write test api
 app.get("/test", (_req, res, _next) => {
