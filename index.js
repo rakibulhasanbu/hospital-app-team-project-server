@@ -14,6 +14,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+//database connection here
+let messageDB = "Database not connected yet"
+connectDB().then(_data => {
+  messageDB = "database connected successfully"
+});
 
 // application routes
 app.use("/api/v1", userRouter, branchRouter, blogRouter, doctorRouter);
@@ -21,15 +26,13 @@ app.use("/api/v1", userRouter, branchRouter, blogRouter, doctorRouter);
 app.use("/products", productHandler);
 
 
-
 // write test api
-app.get("/test", (_req, res, _next) => {
+app.get("/health", (_req, res, _next) => {
   res.status(200).json({
     success: true,
-    message: "Api is working perfectly",
+    message: `Api is working perfectly and also ${messageDB} and running on port ${process.env.PORT}`,
   });
 });
-
 
 // unknown route handling
 app.get("*", (req, _res, next) => {
@@ -43,6 +46,5 @@ app.use(ErrorMiddleware)
 
 //app listening here
 app.listen(process.env.PORT, () => {
-  connectDB();
   console.log(`app listening at port ${process.env.PORT}`);
 });
