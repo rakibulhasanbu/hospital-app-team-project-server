@@ -1,6 +1,6 @@
 const branchModel = require("../models/branchModel");
 const doctorModel = require("../models/doctorModel");
-const CatchAsyncError = require("../utils/catchAsyncError");
+const CatchAsyncError = require("../utils/CatchAsyncError");
 const { ErrorHandler } = require("../utils/error");
 
 const createDoctor = CatchAsyncError(
@@ -29,7 +29,7 @@ const createDoctor = CatchAsyncError(
 );
 
 const getAllDoctors = CatchAsyncError(
-    async (req, res, next) => {
+    async (_req, res, next) => {
         try {
             const doctors = await doctorModel.find();
             res.status(200).json({

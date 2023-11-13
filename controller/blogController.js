@@ -1,5 +1,5 @@
 const blogModel = require("../models/blogModel");
-const CatchAsyncError = require("../utils/catchAsyncError");
+const CatchAsyncError = require("../utils/CatchAsyncError");
 const { ErrorHandler } = require("../utils/error");
 
 const createBlog = CatchAsyncError(
@@ -22,7 +22,7 @@ const createBlog = CatchAsyncError(
 );
 
 const getAllBlog = CatchAsyncError(
-    async (req, res, next) => {
+    async (_req, res, next) => {
         try {
             const blogs = await blogModel.find()
             res.status(200).json({

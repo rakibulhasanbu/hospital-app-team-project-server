@@ -1,5 +1,5 @@
 const branchModel = require("../models/branchModel");
-const CatchAsyncError = require("../utils/catchAsyncError");
+const CatchAsyncError = require("../utils/CatchAsyncError");
 const { ErrorHandler } = require("../utils/error");
 
 const createBranch = CatchAsyncError(
@@ -29,7 +29,7 @@ const createBranch = CatchAsyncError(
 )
 
 const getAllBranch = CatchAsyncError(
-    async (req, res, next) => {
+    async (_req, res, next) => {
         try {
             const branches = await branchModel.find();
             res.status(200).json({
