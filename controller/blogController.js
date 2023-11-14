@@ -61,7 +61,7 @@ const updateBlog = CatchAsyncError(
             const { title, description, imageUrl } = req.body;
             const { id } = req.params
 
-            if (!title, !description, !imageUrl) {
+            if (!title && !description && !imageUrl) {
                 return next(new ErrorHandler("Provide blog title or description or image url for update", 400));
             }
 
