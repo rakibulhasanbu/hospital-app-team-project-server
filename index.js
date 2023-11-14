@@ -7,8 +7,7 @@ const doctorRouter = require("./routes/doctorRouter");
 const branchRouter = require("./routes/branchRouter");
 const blogRouter = require("./routes/blogRouter");
 const userRouter = require("./routes/userRouter");
-
-const productHandler = require("./routes/productsRoute");
+const productRouter = require("./routes/productRouter");
 
 const app = express();
 app.use(express.json());
@@ -27,9 +26,7 @@ connectDB().then(_data => {
 });
 
 // application routes
-app.use("/api/v1", userRouter, branchRouter, blogRouter, doctorRouter);
-
-app.use("/products", productHandler);
+app.use("/api/v1", userRouter, branchRouter, blogRouter, doctorRouter, productRouter);
 
 
 // write test api
