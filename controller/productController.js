@@ -21,7 +21,7 @@ const createProduct = CatchAsyncError(
     }
 );
 
-const getAllProduct = CatchAsyncError(
+const getAllProducts = CatchAsyncError(
     async (_req, res, next) => {
         try {
             const products = await productModel.find()
@@ -98,4 +98,4 @@ const deleteProduct = CatchAsyncError(
     }
 )
 
-module.exports = { createProduct, getAllProduct, getSingleProduct, updateProduct, deleteProduct }
+module.exports = { createProduct, getAllProducts, getSingleProduct, updateProduct, deleteProduct }
